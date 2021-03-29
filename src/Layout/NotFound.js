@@ -1,5 +1,9 @@
 import React from "react";
 
+/** a fallback component for bad URLs
+ * 
+ */
+
 function NotFound() {
   return (
     <div className="NotFound">

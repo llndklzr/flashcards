@@ -11,9 +11,54 @@
       "id": 2
     },
     {
-      "name": "one more deck please",
-      "description": "yum, deck",
-      "id": 3
+      "name": "air force",
+      "description": "bathe me",
+      "id": 4
+    },
+    {
+      "name": "hi",
+      "description": "there",
+      "id": 5
+    },
+    {
+      "name": "up h",
+      "description": "ere",
+      "id": 6
+    },
+    {
+      "name": "will we trip",
+      "description": "dunno",
+      "id": 7
+    },
+    {
+      "name": "America",
+      "description": "A place",
+      "id": 8
+    },
+    {
+      "name": "mexico",
+      "description": "south of usa",
+      "id": 9
+    },
+    {
+      "name": "canada",
+      "description": "north of usa",
+      "id": 10
+    },
+    {
+      "name": "guatemala",
+      "description": "oh hi",
+      "id": 11
+    },
+    {
+      "name": "big",
+      "description": "beige",
+      "id": 12
+    },
+    {
+      "name": "broom",
+      "description": "mop",
+      "id": 13
     }
   ],
   "cards": [
@@ -48,30 +93,106 @@
       "id": 5
     },
     {
-      "cards": [],
-      "front": "b",
-      "back": "b",
-      "deckId": 1,
-      "id": 7
+      "id": 7,
+      "front": "bass",
+      "back": "base",
+      "deckId": 1
     },
     {
-      "deckId": 3,
-      "front": "",
-      "back": "",
-      "": "this is a card",
-      "id": 8
+      "deckId": 2,
+      "front": "card 1",
+      "back": "1",
+      "id": 13
     },
     {
-      "deckId": 3,
-      "front": "i am a front card",
-      "back": "i am the back of a card",
-      "id": 9
+      "id": 14,
+      "front": "phase",
+      "back": "face",
+      "deckId": 2
     },
     {
-      "deckId": 3,
-      "front": "the alphabet",
-      "back": "abcdefghijklmnopqrstuvwxyz",
-      "id": 10
+      "deckId": 2,
+      "front": "card a",
+      "back": "1",
+      "id": 16
+    },
+    {
+      "deckId": 2,
+      "front": "addd",
+      "back": "fccc",
+      "id": 17
+    },
+    {
+      "deckId": 2,
+      "front": "mmm",
+      "back": "45454",
+      "id": 18
+    },
+    {
+      "deckId": 2,
+      "front": "44444444",
+      "back": "ttttt",
+      "id": 19
+    },
+    {
+      "deckId": 2,
+      "front": "l,kkkjg",
+      "back": "88888",
+      "id": 20
+    },
+    {
+      "deckId": 2,
+      "front": "bivvvv",
+      "back": "54444",
+      "id": 21
+    },
+    {
+      "deckId": 5,
+      "front": "this is front",
+      "back": "and a back",
+      "id": 22
+    },
+    {
+      "deckId": 4,
+      "front": "hi",
+      "back": "air force",
+      "id": 25
+    },
+    {
+      "deckId": 5,
+      "front": "one more",
+      "back": "card",
+      "id": 26
+    },
+    {
+      "deckId": 5,
+      "front": "hi ",
+      "back": "bonjour",
+      "id": 28
+    },
+    {
+      "deckId": 5,
+      "front": "girl",
+      "back": "lady",
+      "id": 29
+    },
+    {
+      "deckId": 5,
+      "front": "hi",
+      "back": "high",
+      "id": 30
+    },
+    {
+      "deckId": 5,
+      "front": "pork",
+      "back": "piggy",
+      "id": 31
+    },
+    {
+      "deckId": 5,
+      "front": "deer",
+      "back": "venison",
+      "id": 32
     }
   ]
 }
