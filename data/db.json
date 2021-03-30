@@ -11,11 +11,6 @@
       "id": 2
     },
     {
-      "name": "air force",
-      "description": "bathe me",
-      "id": 4
-    },
-    {
       "name": "hi",
       "description": "there",
       "id": 5
@@ -153,12 +148,6 @@
       "id": 22
     },
     {
-      "deckId": 4,
-      "front": "hi",
-      "back": "air force",
-      "id": 25
-    },
-    {
       "deckId": 5,
       "front": "one more",
       "back": "card",
@@ -193,6 +182,12 @@
       "front": "deer",
       "back": "venison",
       "id": 32
+    },
+    {
+      "deckId": 12,
+      "front": "beach",
+      "back": "playa",
+      "id": 33
     }
   ]
 }
