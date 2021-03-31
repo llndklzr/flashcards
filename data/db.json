@@ -16,39 +16,14 @@
       "id": 5
     },
     {
-      "name": "up h",
-      "description": "ere",
-      "id": 6
+      "name": "Stuffed Animals",
+      "description": "My children's stuffed buddies.",
+      "id": 14
     },
     {
-      "name": "America",
-      "description": "A place",
-      "id": 8
-    },
-    {
-      "name": "mexico",
-      "description": "south of usa",
-      "id": 9
-    },
-    {
-      "name": "canada",
-      "description": "north of usa",
-      "id": 10
-    },
-    {
-      "name": "guatemala",
-      "description": "oh hi",
-      "id": 11
-    },
-    {
-      "name": "big",
-      "description": "beige",
-      "id": 12
-    },
-    {
-      "name": "broom",
-      "description": "mop",
-      "id": 13
+      "name": "What's on my desk?",
+      "description": "I am looking around and naming things.",
+      "id": 15
     }
   ],
   "cards": [
@@ -149,16 +124,10 @@
       "id": 26
     },
     {
-      "deckId": 5,
+      "id": 28,
       "front": "hi ",
       "back": "bonjour",
-      "id": 28
-    },
-    {
-      "deckId": 5,
-      "front": "girl",
-      "back": "lady",
-      "id": 29
+      "deckId": 5
     },
     {
       "deckId": 5,
@@ -168,45 +137,51 @@
     },
     {
       "deckId": 5,
-      "front": "pork",
-      "back": "piggy",
-      "id": 31
-    },
-    {
-      "deckId": 5,
       "front": "deer",
       "back": "venison",
       "id": 32
-    },
-    {
-      "deckId": 12,
-      "front": "beach",
-      "back": "playa",
-      "id": 33
-    },
-    {
-      "deckId": 6,
-      "front": "fronts",
-      "back": "backs\n",
-      "id": 34
-    },
-    {
-      "deckId": 6,
-      "front": "down",
-      "back": "here",
-      "id": 35
-    },
-    {
-      "deckId": 6,
-      "front": "blep",
-      "back": "bloop",
-      "id": 36
     },
     {
       "deckId": 1,
       "front": "React is a",
       "back": "JS framework",
       "id": 37
+    },
+    {
+      "id": 38,
+      "front": "E's Dog",
+      "back": "Chewy, or Choo Choo Train!",
+      "deckId": 14
+    },
+    {
+      "deckId": 14,
+      "front": "H's Badger",
+      "back": "Witness",
+      "id": 39
+    },
+    {
+      "deckId": 14,
+      "front": "H's Elephant",
+      "back": "Gerald",
+      "id": 40
+    },
+    {
+      "deckId": 15,
+      "front": "Left and behind the monitor",
+      "back": "dice",
+      "id": 41
+    },
+    {
+      "deckId": 15,
+      "front": "Right",
+      "back": "Tower",
+      "id": 42
+    },
+    {
+      "deckId": 15,
+      "front": "left of my keyboard",
+      "back": "two cans",
+      "id": 43
     }
   ]
 }

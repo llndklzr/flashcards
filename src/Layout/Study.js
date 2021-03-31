@@ -9,6 +9,9 @@ import NotEnoughCards from "./NotEnoughCards";
  *
  *  @param {object} currentDeck
  *  the current deck corresponding with :deckId in the url
+ *  @param {boolean} loading
+ *  is the page currently in a loading cycle?
+ *  prevent renders before data arrives
  */
 
 function Study({ currentDeck, loading }) {

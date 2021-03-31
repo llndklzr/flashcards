@@ -1,7 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import { Button, DeleteButton } from "./Button";
-import { deleteDeck } from "../utils/api/index";
+import { deleteDeck, listDecks } from "../utils/api/index";
 
 /** displays each deck with buttons to Study, View, and Delete
  *  @param {array} decks
@@ -12,13 +12,48 @@ import { deleteDeck } from "../utils/api/index";
  *  is the page currently in a loading cycle?
  *  prevent renders before data arrives
  */
-function DeckThumbnails({ decks, setLoading, loading }) {
-  async function deleteHandler(id) {
+function DeckThumbnails({ setLoading, loading }) {
+  const history = useHistory();
+  const [decks, setDecks] = useState([]);
+  useEffect(() => {
+    const abortController = new AbortController();
+    //setLoading(true);
+    async function loadDecks() {
+      try {
+        const deckContent = await listDecks(abortController.signal);
+        setDecks(deckContent);
+      } catch (error) {
+        if (error.name === "AbortError") {
+          console.log("loadDecks Aborted");
+        } else {
+          throw error;
+        }
+      }
+    }
+    loadDecks();
+    setLoading(false);
+    return () => abortController.abort();
+  }, [loading, setLoading]);
+
+  async function deleteHandler({ target }) {
+    const id = target.id;
+    const abortController = new AbortController();
     if (
       window.confirm("Delete this deck?\n\nYou will not be able to recover it.")
     ) {
-      await deleteDeck(id);
-      setLoading(true);
+      try{
+        await deleteDeck(id, abortController.signal);
+        setLoading(true);
+        setLoading(false);
+        history.push("/");
+      } catch (error) {
+        if (error.name === "AbortError") {
+          console.log("ViewDeck Delete Aborted")
+        } else {
+          console.log(error) ;
+        }
+      }
+      return () => abortController.abort();
     }
   }
 
@@ -44,11 +79,7 @@ function DeckThumbnails({ decks, setLoading, loading }) {
           </Link>
           {/* TODO: modal w/ "OK" or "Cancel" */}
           {/* TODO: onClick delete */}
-          <DeleteButton
-            onClick={() => {
-              deleteHandler(id);
-            }}
-          >
+          <DeleteButton onClick={deleteHandler} id={id}>
             Delete
           </DeleteButton>
         </div>

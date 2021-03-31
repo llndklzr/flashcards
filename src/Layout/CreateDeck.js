@@ -5,7 +5,7 @@ import { Button } from "./Button";
 
 // /decks/new
 
-/** Create a new deck and send it to the API
+/** Create a new deck entry via API
  *
  *  @param {function} setLoading
  *  set true to trigger updating decks and a rerender
