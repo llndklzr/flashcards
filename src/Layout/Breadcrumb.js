@@ -8,27 +8,22 @@ import { Link, useParams } from "react-router-dom";
  *  @param {object} currentDeck
  *  stately object containing the current deck, {id, name, description}
  *  should only exist in routes including :deckId and :cardId
+ *  @param {boolean} loading
+ *  is the page currently in a loading cycle?
+ *  prevent renders before data arrives
  */
 
-const Breadcrumb = ({ crumbs, currentDeck }) => {
+const Breadcrumb = ({ crumbs, currentDeck, loading }) => {
   const { deckId, cardId } = useParams();
   const [breadcrumbs, setBreadcrumbs] = useState([]);
   const routes = [
-    { path: "/", name: "Home", Component: "Home" },
-    { path: "/decks/:deckId", name: "Deck", Component: "Deck" },
-    { path: "/decks/new", name: "Create Deck", Component: "CreateDeck" },
-    { path: "/decks/:deckId/study", name: "Study", Component: "Study" },
-    { path: "/decks/:deckId/edit", name: "Edit Deck", Component: "EditDeck" },
-    {
-      path: "/decks/:deckId/cards/new",
-      name: "Add Card",
-      Component: "AddCard",
-    },
-    {
-      path: "/decks/:deckId/cards/:cardId/edit",
-      name: "Edit Card",
-      Component: "EditCard",
-    },
+    { path: "/", name: "Home" }, // Home
+    { path: "/decks/:deckId", name: "Deck" }, // Deck
+    { path: "/decks/new", name: "Create Deck" }, // CreateDeck
+    { path: "/decks/:deckId/study", name: "Study" }, // Study
+    { path: "/decks/:deckId/edit", name: "Edit Deck" }, // EditDeck
+    { path: "/decks/:deckId/cards/new", name: "Add Card" }, // AddCard
+    { path: "/decks/:deckId/cards/:cardId/edit", name: "Edit Card" }, // EditCard
   ];
 
   useEffect(() => {
@@ -72,7 +67,7 @@ const Breadcrumb = ({ crumbs, currentDeck }) => {
         setBreadcrumbs(crumbArray);
       } catch (error) {
         if (error.name === "AbortError") {
-          console.log("loadBreadcrumbs Aborted")
+          console.log("loadBreadcrumbs Aborted");
         } else {
           throw error;
         }
@@ -80,8 +75,12 @@ const Breadcrumb = ({ crumbs, currentDeck }) => {
     }
     loadBreadcrumbs();
     return () => abortController.abort();
-  }, [cardId, crumbs]);
-  return <ol className="breadcrumb">{breadcrumbs}</ol>;
+  }, [deckId, cardId, crumbs]);
+  if (loading) {
+    return <p>Loading Breadcrumb...</p>;
+  } else {
+    return <ol className="breadcrumb">{breadcrumbs}</ol>;
+  }
 };
 
 export default Breadcrumb;

@@ -5,13 +5,15 @@ import { Button } from "./Button";
 /** For use inside Study component. Allows users to read both sides
  *  of flashcards and advance to next flashcard. Gives option to start
  *  over after reading last flashcard.
- * 
+ *
  *  @param {object} currentDeck
- *  the current deck corresponding with :deckId in url, {name, description, id} 
+ *  the current deck corresponding with :deckId in url, {name, description, id}
+ *  @param {boolean} loading
+ *  is the page currently in a loading cycle?
+ *  prevent renders before data arrives
  */
 
-
-function Card({ currentDeck }) {
+function Card({ currentDeck, loading }) {
   const { cards } = currentDeck;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [front, setFront] = useState(true);
@@ -39,7 +41,7 @@ function Card({ currentDeck }) {
     setFront(!front);
   };
 
-  return (
+  const renderView = (
     <div className="card border-primary mb-3">
       <div className="card-body">
         {/* TODO: title is card # of # */}
@@ -57,6 +59,11 @@ function Card({ currentDeck }) {
       </div>
     </div>
   );
+  if (loading) {
+    return <p>Loading Card...</p>;
+  } else {
+    return <>{renderView}</>;
+  }
 }
 
 export default Card;

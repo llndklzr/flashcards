@@ -21,11 +21,6 @@
       "id": 6
     },
     {
-      "name": "will we trip",
-      "description": "dunno",
-      "id": 7
-    },
-    {
       "name": "America",
       "description": "A place",
       "id": 8
@@ -188,6 +183,30 @@
       "front": "beach",
       "back": "playa",
       "id": 33
+    },
+    {
+      "deckId": 6,
+      "front": "fronts",
+      "back": "backs\n",
+      "id": 34
+    },
+    {
+      "deckId": 6,
+      "front": "down",
+      "back": "here",
+      "id": 35
+    },
+    {
+      "deckId": 6,
+      "front": "blep",
+      "back": "bloop",
+      "id": 36
+    },
+    {
+      "deckId": 1,
+      "front": "React is a",
+      "back": "JS framework",
+      "id": 37
     }
   ]
 }

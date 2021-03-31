@@ -9,9 +9,12 @@ import { Button } from "./Button";
  *
  *  @param {function} setLoading
  *  set true to trigger updating decks and a rerender
+ *  @param {boolean} loading
+ *  is the page currently in a loading cycle?
+ *  prevent renders before data arrives
  */
 
-function CreateDeck({ setLoading }) {
+function CreateDeck({ setLoading, loading }) {
   const initialFormData = {
     name: "",
     description: "",
@@ -33,7 +36,7 @@ function CreateDeck({ setLoading }) {
     history.push(`/decks/${id}`);
   }
 
-  return (
+  const renderView = (
     <div>
       <h2>Create Deck</h2>
       <form onSubmit={handleSubmit} className="form-group">
@@ -64,6 +67,11 @@ function CreateDeck({ setLoading }) {
       </form>
     </div>
   );
+  if (loading) {
+    return <p>Loading Create Deck...</p>;
+  } else {
+    return <>{renderView}</>;
+  }
 }
 
 export default CreateDeck;

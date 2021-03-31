@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { Button } from "./Button";
 import { createCard } from "../utils/api/index";
@@ -7,40 +7,68 @@ import { createCard } from "../utils/api/index";
 
 /** Create a new card and send it to the API
  *
- *  @param {array} decks
- *  the list of decks, {id, name, description}
- *  @param  {function} setLoading
- *  set true to trigger updating decks and a rerender
+ *  @param {object} currentDeck
+ *  the deck which corresponds with :deckId in the url
+ *  @param {function} setLoading
+ *  set true to trigger a rerender
+ *  @param {boolean} loading
+ *  is the page currently in a loading cycle?
+ *  prevent renders before data arrives
  */
 
-function AddCard({ decks, setLoading }) {
+function AddCard({ currentDeck, setLoading, loading }) {
   const { deckId } = useParams();
-  const { name, id } = decks.find((deck) => Number(deck.id) === Number(deckId));
-  const initialCardData = {
-    deckId: id,
+  const [addCardData, setAddCardData] = useState({});
+  const { name, id } = currentDeck;
+  const initialAddCardData = {
+    deckId,
     front: "",
     back: "",
   };
-  const [cardData, setCardData] = useState(initialCardData);
+
+  useEffect(() => {
+    const abortController = new AbortController();
+    async function loadAddCardData() {
+      try {
+        setAddCardData(initialAddCardData);
+      } catch (error) {
+        if (error.name === "AbortError") {
+          console.log("loadAddCardData Aborted");
+        } else {
+          throw error;
+        }
+      }
+    }
+    loadAddCardData();
+    return () => abortController.abort;
+  }, [deckId]);
 
   const handleChange = ({ target }) => {
-    setCardData({
-      ...cardData,
+    setAddCardData({
+      ...addCardData,
       [target.name]: target.value,
     });
   };
 
   const history = useHistory();
 
-  const handleSubmit = (event) => {
+  async function handleSubmit(event) {
     event.preventDefault();
-    Promise.resolve(createCard(id, cardData))
-      .then(setCardData(initialCardData))
-      .catch(console.log)
-      .then(setLoading(true));
-  };
+    const abortController = new AbortController();
+    try {
+      await createCard(id, addCardData, abortController.signal);
+      setAddCardData(initialAddCardData);
+      setLoading(true);
+    } catch (error) {
+      if (error.name === "AbortError") {
+        console.log("AddCard handleSubmit Aborted");
+      } else {
+        throw error;
+      }
+    }
+  }
 
-  return (
+  const renderView = (
     <div>
       <h2>Add Card</h2>
       <h3>Deck: {name}</h3>
@@ -52,7 +80,7 @@ function AddCard({ decks, setLoading }) {
           name="front"
           rows="3"
           onChange={handleChange}
-          value={cardData.front}
+          value={addCardData.front}
         />
         <label htmlFor="backText">Back</label>
         <textarea
@@ -61,7 +89,7 @@ function AddCard({ decks, setLoading }) {
           name="back"
           rows="3"
           onChange={handleChange}
-          value={cardData.back}
+          value={addCardData.back}
         />
         <Button
           onClick={() => {
@@ -75,6 +103,11 @@ function AddCard({ decks, setLoading }) {
       </form>
     </div>
   );
+  if (loading) {
+    return <p>Add Card Loading...</p>;
+  } else {
+    return <>{renderView}</>;
+  }
 }
 
 export default AddCard;

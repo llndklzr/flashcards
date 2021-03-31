@@ -7,15 +7,22 @@ import { updateDeck } from "../utils/api/index";
 
 /** updates a deck's name and description via an API
  *
- *  @param {function} setLoading
- *  set true to update decks and trigger a re-render
  *  @param {object} currentDeck
  *  the current deck, corresponding to :deckId in the url, {name, description, id}
+ *  @param {function} setLoading
+ *  set true to update decks and trigger a re-render
+ *  @param {boolean} loading
+ *  is the page currently in a loading cycle?
+ *  prevent renders before data arrives
  */
 
-function EditDeck({ setLoading, currentDeck }) {
+function EditDeck({ currentDeck, setLoading, loading }) {
   const { deckId } = useParams();
-  const [editDeckData, setEditDeckData] = useState({});
+  const [editDeckData, setEditDeckData] = useState({
+    name: "test",
+    description: "alsoTest",
+    id: deckId,
+  });
   const { name, description } = currentDeck;
   const history = useHistory();
   const initialEditDeckData = {
@@ -44,11 +51,11 @@ function EditDeck({ setLoading, currentDeck }) {
     return () => abortController.abort();
   }
 
-  return (
+  const renderView = (
     <div>
       <h2>Edit Deck</h2>
       <form onSubmit={handleSubmit} className="form-group">
-        <label className="col-form-label" htmlFor="deckName">
+        <label className="col-form-label" htmlFor="name">
           Name
         </label>
         <input
@@ -59,12 +66,12 @@ function EditDeck({ setLoading, currentDeck }) {
           id="name"
           name="name"
         />
-        <label htmlFor="deckDescription">Description</label>
+        <label htmlFor="description">Description</label>
         <textarea
-          id="deckDescription"
           className="form-control"
           onChange={handleChange}
           value={editDeckData.description}
+          id="description"
           name="description"
           rows="3"
         />
@@ -75,6 +82,11 @@ function EditDeck({ setLoading, currentDeck }) {
       </form>
     </div>
   );
+  if (loading) {
+    return <p>Edit Deck Loading...</p>;
+  } else {
+    return <>{renderView}</>;
+  }
 }
 
 export default EditDeck;

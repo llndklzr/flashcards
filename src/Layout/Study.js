@@ -6,31 +6,33 @@ import NotEnoughCards from "./NotEnoughCards";
 
 /** A Component for an active study session. Card Component displays cards.
  *  If there are less than 3 cards displays NotEnoughCards
- * 
+ *
  *  @param {object} currentDeck
  *  the current deck corresponding with :deckId in the url
  */
 
-function Study({ currentDeck }) {
+function Study({ currentDeck, loading }) {
   // TODO: deal with race condition here
   //const { deckId } = useParams();
   //const currentDeck = decks.find((deck) => deck.id === Number(deckId));
   const { name, cards } = currentDeck;
+  const renderView = (
+    <div>
+      <h2>Study: {name}</h2>
+      <Card currentDeck={currentDeck} loading={loading} />
+    </div>
+  );
+  if (loading) {
+    return <p>Study Loading...</p>;
+  }
   if (cards.length < 3) {
     return (
       <div>
         <NotEnoughCards cards={cards} />
       </div>
     );
-  } else {
-    return (
-      <div>
-        {/* TODO: get deck here */}
-        <h2>Study: {name}</h2>
-        <Card currentDeck={currentDeck} />
-      </div>
-    );
   }
+  return <>{renderView}</>;
 }
 
 export default Study;

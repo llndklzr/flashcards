@@ -8,20 +8,13 @@ import Breadcrumb from "./Breadcrumb";
 import Home from "./Home";
 import CreateDeck from "./CreateDeck";
 
-
 function Layout() {
-  const [decks, setDecks] = useState(null);
-  const [error, setError] = useState(undefined);
+  const [decks, setDecks] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const abortController = new AbortController();
     setLoading(true);
-    // Promise.resolve(listDecks(abortController.signal))
-    //   .then((result) => setDecks(result))
-    //   .catch(setError)
-    //   .then(setLoading(false));
-
     async function loadDecks() {
       try {
         const deckContent = await listDecks(abortController.signal);
@@ -39,45 +32,34 @@ function Layout() {
     return () => abortController.abort();
   }, [loading]);
 
-  //const renderLoading = () => <div>Loading...</div>;
-  //const renderError = () => <div>Got an error.</div>;
   const renderView = (
     <>
       <Header />
       <div className="container">
         <Switch>
           <Route exact path="/">
-            <Home decks={decks} setLoading={setLoading} />
+            <Home decks={decks} setLoading={setLoading} loading={loading} />
           </Route>
-          <Route exact path="/decks/new">
-            <Breadcrumb crumbs={["Home", "Create Deck"]} />
-            <CreateDeck decks={decks} setLoading={setLoading} />
+          <Route path="/decks/new">
+            <Breadcrumb crumbs={["Home", "Create Deck"]} loading={loading} />
+            <CreateDeck setLoading={setLoading} loading={loading} />
           </Route>
           <Route path="/decks/:deckId">
             {/* nested routing continues in Deck component */}
-            <Deck decks={decks} setLoading={setLoading} setError={setError} />
+            <Deck setLoading={setLoading} loading={loading} />
           </Route>
           <Route>
-            <NotFound />
+            <NotFound loading={loading} />
           </Route>
         </Switch>
       </div>
     </>
   );
 
-  if (!decks) {
-    return <h3>Loading...</h3>;
+  if (loading) {
+    return <p>Layout Loading...</p>;
   }
-
-  return (
-    <div>
-      {/* 
-      {error && renderError()}
-      {loading && renderLoading()}
-      */}
-      {renderView}
-    </div>
-  );
+  return <>{renderView}</>;
 }
 
 export default Layout;

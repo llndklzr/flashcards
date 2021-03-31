@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams, useRouteMatch } from "react-router-dom";
+import { Link, useRouteMatch } from "react-router-dom";
 import { Button, DeleteButton } from "./Button";
 import CardList from "./CardList";
 
@@ -14,10 +14,10 @@ import CardList from "./CardList";
  *  a function to update decks and trigger a re-render
  */
 
-function ViewDeck({ currentDeck, setLoading }) {
+function ViewDeck({ currentDeck, setLoading, loading }) {
   const { name, description, cards } = currentDeck;
   const { url } = useRouteMatch();
-  return (
+  const renderView = (
     <div>
       <h2>{name}</h2>
       <h4>{description}</h4>
@@ -31,9 +31,14 @@ function ViewDeck({ currentDeck, setLoading }) {
         <Button>Add Cards</Button>
       </Link>
       <DeleteButton>Delete</DeleteButton>
-      <CardList cards={cards} setLoading={setLoading} />
+      <CardList cards={cards} setLoading={setLoading} loading={loading} />
     </div>
   );
+  if (loading) {
+    return <p>Loading View Deck...</p>;
+  } else {
+    return <>{renderView}</>;
+  }
 }
 
 export default ViewDeck;

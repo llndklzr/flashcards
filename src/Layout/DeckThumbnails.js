@@ -4,12 +4,15 @@ import { Button, DeleteButton } from "./Button";
 import { deleteDeck } from "../utils/api/index";
 
 /** displays each deck with buttons to Study, View, and Delete
- *   @param {array} decks
- *   the list of decks, {id, name, description}
- *   @param {function} setLoading
- *   set true to trigger updating decks and a rerender
+ *  @param {array} decks
+ *  the list of decks, {id, name, description}
+ *  @param {function} setLoading
+ *  set true to trigger updating decks and a rerender
+ *  @param {boolean} loading
+ *  is the page currently in a loading cycle?
+ *  prevent renders before data arrives
  */
-function DeckThumbnails({ decks, setLoading }) {
+function DeckThumbnails({ decks, setLoading, loading }) {
   async function deleteHandler(id) {
     if (
       window.confirm("Delete this deck?\n\nYou will not be able to recover it.")
@@ -19,7 +22,7 @@ function DeckThumbnails({ decks, setLoading }) {
     }
   }
 
-  return decks.map(({ id, name, description, cards }) => {
+  const renderView = decks.map(({ id, name, description, cards }) => {
     return (
       <div key={id} className="card mb-3">
         <div className="card-body">
@@ -52,6 +55,11 @@ function DeckThumbnails({ decks, setLoading }) {
       </div>
     );
   });
+  if (loading) {
+    return <p>Loading Deck Thumbnails...</p>;
+  } else {
+    return <div>{renderView}</div>;
+  }
 }
 
 export default DeckThumbnails;
