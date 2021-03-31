@@ -11,11 +11,6 @@
       "id": 2
     },
     {
-      "name": "hi",
-      "description": "there",
-      "id": 5
-    },
-    {
       "name": "Stuffed Animals",
       "description": "My children's stuffed buddies.",
       "id": 14
@@ -112,36 +107,6 @@
       "id": 21
     },
     {
-      "deckId": 5,
-      "front": "this is front",
-      "back": "and a back",
-      "id": 22
-    },
-    {
-      "deckId": 5,
-      "front": "one more",
-      "back": "card",
-      "id": 26
-    },
-    {
-      "id": 28,
-      "front": "hi ",
-      "back": "bonjour",
-      "deckId": 5
-    },
-    {
-      "deckId": 5,
-      "front": "hi",
-      "back": "high",
-      "id": 30
-    },
-    {
-      "deckId": 5,
-      "front": "deer",
-      "back": "venison",
-      "id": 32
-    },
-    {
       "deckId": 1,
       "front": "React is a",
       "back": "JS framework",
@@ -182,6 +147,18 @@
       "front": "left of my keyboard",
       "back": "two cans",
       "id": 43
+    },
+    {
+      "deckId": 2,
+      "front": "new card",
+      "back": "who dis?",
+      "id": 44
+    },
+    {
+      "deckId": 14,
+      "front": "caterpillar",
+      "back": "E's",
+      "id": 45
     }
   ]
 }

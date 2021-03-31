@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Button } from "./Button";
-import { useHistory, useParams } from "react-router-dom";
-import { readCard, updateCard } from "../utils/api";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { readCard } from "../utils/api";
+import CardForm from "./CardForm";
 
 /** A component to modify the content of a particular card via an API
  *
@@ -14,22 +14,17 @@ import { readCard, updateCard } from "../utils/api";
 
 function EditCard({ setLoading, loading }) {
   const { cardId, deckId } = useParams();
-  const [editCardData, setEditCardData] = useState({});
-  const history = useHistory();
+  const initialEditCardData = {};
 
   useEffect(() => {
-    const abortController = new AbortController();
     async function loadEditCardData() {
+      const abortController = new AbortController();
       try {
         const currentCard = await readCard(cardId, abortController.signal);
-        const { id, front, back, deckId } = currentCard;
-        const initialEditCardData = {
-          id,
-          front,
-          back,
-          deckId,
-        };
-        setEditCardData(initialEditCardData);
+        initialEditCardData.id = currentCard.id;
+        initialEditCardData.front = currentCard.front;
+        initialEditCardData.back = currentCard.back;
+        initialEditCardData.deckId = currentCard.deckId;
       } catch (error) {
         if (error.name === "AbortError") {
           console.log("loadEditCardData Aborted");
@@ -37,54 +32,15 @@ function EditCard({ setLoading, loading }) {
           throw error;
         }
       }
+      return () => abortController.abort();
     }
     loadEditCardData();
-    return () => abortController.abort();
-  }, [cardId]);
+  }, [deckId, cardId]);
 
-  const handleChange = ({ target }) => {
-    setEditCardData({
-      ...editCardData,
-      [target.name]: target.value,
-    });
-  };
-
-  async function handleSubmit(event) {
-    event.preventDefault();
-    const abortController = new AbortController();
-    await updateCard(editCardData, abortController.signal);
-    history.push(`/decks/${deckId}`);
-    setLoading(true);
-    return () => abortController.abort();
-  }
   const renderView = (
     <div>
       <h2>Edit Card</h2>
-      <form onSubmit={handleSubmit} className="form-group">
-        <label className="col-form-label" htmlFor="frontText">
-          Front
-        </label>
-        <textarea
-          className="form-control"
-          id="front"
-          name="front"
-          onChange={handleChange}
-          value={editCardData.front}
-          rows="3"
-        />
-        <br />
-        <label htmlFor="backText">Back</label>
-        <textarea
-          className="form-control"
-          id="back"
-          name="back"
-          onChange={handleChange}
-          value={editCardData.back}
-          rows="3"
-        />
-        <Button onClick={() => history.push(`/decks/${deckId}`)}>Done</Button>
-        <Button type="submit">Save</Button>
-      </form>
+      <CardForm initialCardData={initialEditCardData} setLoading={setLoading} />
     </div>
   );
   if (loading) {
